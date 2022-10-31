@@ -218,15 +218,21 @@ void TCS34725Component::update() {
     channel_b = raw_b / sum * 100.0f;
     channel_c = raw_c / max_count * 100.0f;
   }
+  
+  float c,r,g,b;
+  c = raw_c;
+  r = raw_r;
+  g = raw_g;
+  b = raw_b;
 
   if (this->clear_sensor_ != nullptr)
-    this->clear_sensor_->publish_state(channel_c);
+    this->clear_sensor_->publish_state(c);
   if (this->red_sensor_ != nullptr)
-    this->red_sensor_->publish_state(channel_r);
+    this->red_sensor_->publish_state(r);
   if (this->green_sensor_ != nullptr)
-    this->green_sensor_->publish_state(channel_g);
+    this->green_sensor_->publish_state(g);
   if (this->blue_sensor_ != nullptr)
-    this->blue_sensor_->publish_state(channel_b);
+    this->blue_sensor_->publish_state(b);
 
   if (this->illuminance_sensor_ || this->color_temperature_sensor_) {
     calculate_temperature_and_lux_(raw_r, raw_g, raw_b, raw_c);
